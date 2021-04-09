@@ -4,13 +4,13 @@ public class Cliente {
 
 	private String nome;
 	private String endereco;
-	private String cpf;
-	private String telefone;
+	private int cpf;
+	private int telefone;
 	
 	public Cliente() {
 		
 	}
-	public Cliente(String nome, String endereco, String cpf, String telefone) {
+	public Cliente(String nome, String endereco, int cpf, int telefone) {
 		
 		this.nome = nome;
 		this.endereco = endereco;
@@ -34,19 +34,19 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public String getCpf() {
+	public int getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
+	public void setCpf(int cpf) {
 		this.cpf = cpf;
 	}
 
-	public String getTelefone() {
+	public int getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	public void setTelefone(int telefone) {
 		this.telefone = telefone;
 	}
 	

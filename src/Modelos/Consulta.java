@@ -7,20 +7,25 @@ public class Consulta {
 	private String raca;
 	private String sexo;
 	private String atendimento;
+	private int idPet;
 	
-	public Consulta(String nomePet, String especie, String raca, String sexo, String atendimendo) {
+	public Consulta() {
+		
+	}
+
+	public Consulta(String nomePet, String especie, String raca, String sexo, String atendimendo,int idPet) {
 		super();
+		
+		
 		this.nomePet = nomePet;
 		this.especie = especie;
 		this.raca = raca;
 		this.sexo = sexo;
 		this.atendimento = atendimendo;
+		this.idPet = idPet;
 	}
 
-	public Consulta() {
-		// TODO Auto-generated constructor stub
-	}
-
+	
 	public String getNomePet() {
 		return nomePet;
 	}
@@ -59,6 +64,12 @@ public class Consulta {
 
 	public void setAtendimendo(String atendimendo) {
 		this.atendimento = atendimendo;
+	}
+	public int getIdPet() {
+		return idPet;
+	}
+	public void setIdPet(int idPet) {
+		this.idPet = idPet;
 	}
 
 	public void cadastrarConsulta() {

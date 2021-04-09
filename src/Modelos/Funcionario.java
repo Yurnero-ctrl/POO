@@ -22,7 +22,7 @@ public class Funcionario {
 		System.out.println("Informe seu nome, endereco, cpf e telefone");
 		Scanner teclado = new Scanner (System.in);
 		
-		Cliente c1 = new Cliente(teclado.nextLine(), teclado.nextLine(), teclado.nextLine(),teclado.nextLine());
+		Cliente c1 = new Cliente(teclado.nextLine(), teclado.nextLine(), teclado.nextInt(),teclado.nextInt());
 		
 		 System.out.println("nome: " + c1.getNome());
          System.out.println("endereco: " + c1.getEndereco());
@@ -32,8 +32,9 @@ public class Funcionario {
 	}
 	public void cadastrarConsulta() {
 		Scanner teclado3 = new Scanner (System.in);
-		Consulta consul = new Consulta(teclado3.nextLine(), teclado3.nextLine(), teclado3.nextLine(), teclado3.nextLine(), teclado3.nextLine());
+		Consulta consul = new Consulta(teclado3.nextLine(), teclado3.nextLine(), teclado3.nextLine(), teclado3.nextLine(), teclado3.nextLine(),teclado3.nextInt());
 		
+		System.out.println("idPet" + consul.getIdPet());
 		System.out.println("nome: " + consul.getNomePet());
 		System.out.println("Especie: " + consul.getEspecie());
 		System.out.println("Raça: " + consul.getRaca());

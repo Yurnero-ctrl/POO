@@ -3,31 +3,40 @@ package Main;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Modelos.ArrayListClientes;
 import Modelos.ArrayListConsultas;
 import Modelos.Cliente;
 import Modelos.Consulta;
 import Modelos.Funcionario;
+import Persistencia.ClienteDAO;
+import Persistencia.ConsultaDAO;
+
 
 public class Principal {
 	
 	public static String opcao;
 
-	private static ArrayListClientes cli;
+	
 	private static ArrayListConsultas con;
+	
 	
 	public static void main(String[] args) {
 		
-		cli = new ArrayListClientes();
-		con = new ArrayListConsultas();
 		
+		con = new ArrayListConsultas();
+		ClienteDAO cliDAO = new ClienteDAO();
+		ConsultaDAO conDAO = new ConsultaDAO();
+		ArrayList<Cliente> lista;
+		ArrayList<Consulta> lista1;
+		int i, e;
+		
+		Scanner ler = new Scanner (System.in);
 		Scanner teclado1 = new Scanner (System.in);
 		Scanner teclado2 = new Scanner (System.in);
 		
 		String nome;
 		String endereco;
-		String cpf;
-		String telefone;
+		int cpf;
+		int telefone;
 
 		ArrayListConsultas lc1;
 		String nomePet;
@@ -48,117 +57,97 @@ public class Principal {
 			System.out.println("6 - SAIR");
 			System.out.println("");
 			System.out.println("");
-			System.out.println("Digite a opção:");
+			System.out.println("Digite a opcao:");
 			
 			opcao = teclado1.nextLine();
 			
 			switch(opcao) {
 			
 			case "1":
-				System.out.println("");
-				System.out.println("");
-				System.out.println("---------CADASTRO CLIENTE---------");
-
-				
-				System.out.println("Digite o nome");
-				nome = teclado2.nextLine();
-				
-				System.out.println("Digite o endere�o");
-				endereco = teclado2.nextLine();
-				
-				System.out.println("Digite o cpf");
-				cpf = teclado2.nextLine();
-				
-				System.out.println("Digite o telefone");
-				telefone = teclado2.nextLine();
-				
-				
-				cli.adicionar(new Cliente(nome, endereco, cpf, telefone));
-				
-				System.out.println("");
-				System.out.println("");
-				
+				System.out.println("Inclusao de Cliente");
+                Cliente c = new Cliente(); 
+                System.out.println("Digite o cpf do novo cliente: ");
+                c.setCpf(ler.nextInt());
+                if(cliDAO.buscarcliente(c.getCpf())==null){
+                    ler.nextLine();
+                    System.out.println("Digite o nome: ");
+                    c.setNome(ler.nextLine());
+                    System.out.println("Digite o endereco: ");
+                    c.setEndereco(ler.nextLine());
+                    System.out.println("Digite o telefone: ");
+                    c.setTelefone(ler.nextInt());
+                    cliDAO.inclusaocliente(c);
+                    System.out.println("Contato cadastrado com sucesso!");
+                }else
+                    System.out.println("O cliente ja esta cadastrado!");
 				break;
 			
 			case "2":
-				System.out.println("");
-				System.out.println("");
-				System.out.println("---------CLIENTES CADASTRADOS---------");
-				
-				System.out.println(cli.listar());
-				
-				System.out.println("");
-				System.out.println("");
-				
-				break;
+				System.out.println("Clientes Geral");
+                lista = new ArrayList<>();    
+                lista = cliDAO.ClienteGeral();
+                for(i=0; i<lista.size(); i++){
+                    System.out.println("--------------------------------------");
+                    System.out.println("Nome: "+lista.get(i).getNome());
+                    System.out.println("Endereco: "+lista.get(i).getEndereco());
+                    System.out.println("Cpf: "+lista.get(i).getCpf());
+                    System.out.println("Telefone: "+lista.get(i).getTelefone());
+                }
+                System.out.println("Relatorio finalizado com sucesso");
+                break;
 				
 			case "3":
-				System.out.println("");
-				System.out.println("");
-				System.out.println("---------MARCAR CONSULTA---------");
-
-				
-				System.out.println("Digite o nome do pet");
-				nomePet = teclado2.nextLine();
-				
-				System.out.println("Digite a especie");
-				especie = teclado2.nextLine();
-				
-				System.out.println("Digite o ra�a");
-				raca = teclado2.nextLine();
-				
-				System.out.println("Digite o sexo");
-				sexo = teclado2.nextLine();
-				
-				System.out.println("Qual o atendimento");
-				atendimento = teclado2.nextLine();
-			
-				
-				con.colocar(new Consulta(nomePet, especie, raca, sexo, atendimento));
-				
-				System.out.println("");
-				System.out.println("Consulta marcada com sucesso!");
-				System.out.println("");
-				System.out.println("");
-				
+				System.out.println("Inclusao de Consulta");
+                Consulta c1 = new Consulta(); 
+                System.out.println("Digite o cpf do novo cliente: ");
+                c1.setIdPet(ler.nextInt());
+                if(conDAO.buscarconsulta(c1.getIdPet())==null){
+                    ler.nextLine();
+                    System.out.println("Digite o nomePet: ");
+                    c1.setNomePet(ler.nextLine());
+                    System.out.println("Digite a especie: ");
+                    c1.setEspecie(ler.nextLine());
+                    System.out.println("Digite o raca: ");
+                    c1.setRaca(ler.nextLine());
+                    System.out.println("Digite o sexo: ");
+                    c1.setSexo(ler.nextLine());
+                    System.out.println("Digite o atendimento: ");
+                    c1.setAtendimendo(ler.nextLine());
+                    System.out.println("Digite o id");
+                    c1.setIdPet(ler.nextInt());
+                    conDAO.inclusao(c1);
+                    System.out.println("Consulta cadastrado com sucesso!");
+                }else
+                    System.out.println("A Consulta ja esta cadastrado!");
 				break;
 				
 			case "4":
-				System.out.println("");
-				System.out.println("");
-				System.out.println("---------CONSULTAS MARCADAS---------");
-				
-				System.out.println(con.listar());
-				
-				System.out.println("");
-				System.out.println("");
-				
-				break;
+				System.out.println("Consultas Geral");
+                lista1 = new ArrayList<>();    
+                lista1 = conDAO.ConsultaGeral();
+                for(i=0; i<lista1.size(); i++){
+                    System.out.println("--------------------------------------");
+                    System.out.println("NomePet: "+lista1.get(i).getNomePet());
+                    System.out.println("Especie: "+lista1.get(i).getEspecie());
+                    System.out.println("Raca: "+lista1.get(i).getRaca());
+                    System.out.println("Sexo: "+lista1.get(i).getSexo());
+                    System.out.println("Atendimento: "+lista1.get(i).getAtendimendo());
+                    System.out.println("IdPet: "+lista1.get(i).getIdPet());
+                }
+                System.out.println("Relatorio finalizado com sucesso");
+                break;
+                
 			case "5":
-				System.out.println("");
-				System.out.println("");
-				System.out.println("---------REMOVER CONSULTA---------");
-				System.out.println("Insira o nome do pet");
-				nomePet = teclado2.nextLine();
-				
-//				System.out.println(con.listar());
-				if(!(ArrayListConsultas.listar().isEmpty())) {
-					if(ArrayListConsultas.remove(nomePet)) {
-						System.out.println("");
-						System.out.println("Consulta removida com sucesso!");
-					}else {
-						System.out.println("");
-						System.out.println("Não tem consulta cadastrada com esse nome.");
-					}
-				}
-				else
-				{
-					System.out.println("Não tem consulta cadastrada.");
-				}
-				
-				System.out.println("");
-				System.out.println("");
-				
+				System.out.println("Exclusao de Consulta");
+                c1 = new Consulta();
+                System.out.println("Digite o Id do pet que deseja excluir: ");
+                c1.setIdPet(ler.nextInt());
+                if(conDAO.buscarconsulta(c1.getIdPet())==null){
+                    System.out.println("O pet nao esta cadastrado!");
+                }else{
+                       conDAO.exclusao(c1.getIdPet());
+                        System.out.println("Exclusao realizada!");
+                }
 				break;
 				
 			case "6":
