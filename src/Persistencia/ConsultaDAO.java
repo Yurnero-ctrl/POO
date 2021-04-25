@@ -95,7 +95,29 @@ public class ConsultaDAO {
 		}catch(SQLException e) {
 			System.out.println("ERRO NO RELATORIO"+ e.getMessage());
 		}
+		
 		return lista;
 	}
+	
+	public ArrayList<String> ConsultaGeral2(){
+		   ArrayList<String> lista = new ArrayList<>();
+		try {
+			minhaConexao.conectar();
+			Statement instrucao = minhaConexao.getConexao().createStatement();
+			ResultSet rs = instrucao.executeQuery(CONSULTAGERAL);
+			while(rs.next()) {
+				//Consulta c1 = new Consulta(rs.getString("nomePet"),
+	           // rs.getString("especie"), rs.getString("raca"), rs.getString("sexo"),
+	          //rs.getString("atendimento"),rs.getInt("idPet")); 
+				lista.add(rs.getString("idPet")+"/"+rs.getString("atendimento")+"/"+rs.getString("nomePet"));
+			}
+			minhaConexao.desconectar();
+		}catch(SQLException e) {
+			System.out.println("ERRO NO RELATORIO"+ e.getMessage());
+		}
+		
+		return lista;
+	}
+	
 	
 }

@@ -38,7 +38,9 @@ public class ClienteDAO {
         }catch(Exception e){
             System.out.println("Erro na inclusao: "+e.getMessage());
         }
+        
     }
+
 	//buscar o cliente
 	public Cliente buscarcliente(int cpf){
 		Cliente c = null;
@@ -69,6 +71,23 @@ public class ClienteDAO {
 				Cliente c = new Cliente(rs.getString("nome"), rs.getString("endereco"),
 	            rs.getInt("cpfCli"), rs.getInt("telefone")); 
 				lista.add(c);
+			}
+			minhaConexao.desconectar();
+		}catch(SQLException e) {
+			System.out.println("ERRO NO RELATORIO"+ e.getMessage());
+		}
+		return lista;
+	}
+	public ArrayList<String> ClienteGeral2(){
+		   ArrayList<String> lista = new ArrayList<>();
+		try {
+			minhaConexao.conectar();
+			Statement instrucao = minhaConexao.getConexao().createStatement();
+			ResultSet rs = instrucao.executeQuery(CLIENTEGERAL);
+			while(rs.next()) {
+				//Cliente c = new Cliente(rs.getString("nome"), rs.getString("endereco"),
+	            //rs.getInt("cpfCli"), rs.getInt("telefone")); 
+				lista.add(rs.getString("nome"));
 			}
 			minhaConexao.desconectar();
 		}catch(SQLException e) {

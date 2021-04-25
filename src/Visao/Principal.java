@@ -1,4 +1,4 @@
-package Main;
+package Visao;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,10 +9,31 @@ import Modelos.Consulta;
 import Modelos.Funcionario;
 import Persistencia.ClienteDAO;
 import Persistencia.ConsultaDAO;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
-public class Principal {
+	public class Principal extends Application {
+		@Override
+		public void start(Stage stagePrincipal) throws Exception {
+	        
+	        
+	        Parent root = FXMLLoader.load(getClass().getResource("FXMLLoginPetShop.fxml"));
+	        Scene scene = new Scene(root);
+	        stagePrincipal.setScene(scene);
+	        stagePrincipal.setTitle("Pet Shop Pata de Gorila - Login");
+	        stagePrincipal.show();
+		}
+		
+		public static void main(String[] args) {
+			launch(args);
+		}
+}
 	
+	/*
 	public static String opcao;
 
 	
@@ -163,6 +184,6 @@ public class Principal {
 				System.out.println("");
 			}
 		} while (!opcao.equals("6"));
-	}
+	}*/
 	
-}
+
